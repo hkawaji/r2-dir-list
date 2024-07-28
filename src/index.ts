@@ -57,6 +57,24 @@ export default {
             delimiter: '/',
             include: ['httpMetadata', 'customMetadata']
         });
+
+        // Check if objectKey + 'index.html' exists in the returned objects
+			  // and return the content if exists.
+        const indexHtmlKey = objectKey + 'index.html';
+        const indexHtmlObject = index.objects.find(obj => obj.key === indexHtmlKey);
+        if (indexHtmlObject) {
+            // Fetch the content of the index.html file
+            const indexHtmlResponse = await fetch( url + "index.html");
+            if (indexHtmlResponse.ok) {
+                return new Response(await indexHtmlResponse.text(), {
+                    headers: {
+                        'Content-Type': 'text/html; charset=utf-8',
+                    },
+                    status: 200,
+                });
+            }
+        }
+
         // if no object found, return origin response
         if (index.objects.length === 0 && index.delimitedPrefixes.length === 0) {
             return originResponse;
