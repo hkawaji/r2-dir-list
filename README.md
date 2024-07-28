@@ -22,7 +22,7 @@ You should edit:
 
 You may want to search `bucketdomain`, `bucketname` and `example.com` in your code to ensure you have edited all of them.
 
-Then you can run `wrangler deploy` to deploy it to your Cloudflare Workers.
+Then you can run `npx wrangler deploy` to deploy it to your Cloudflare Workers.
 
 ## Demo
 
