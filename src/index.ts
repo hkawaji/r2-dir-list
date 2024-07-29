@@ -75,12 +75,24 @@ export default {
             }
         }
 
+			  // Check if objectKey + 'README.html' exists in the returned objects
+        const readmeHtmlKey = objectKey + 'README.html';
+        const readmeHtmlObject = index.objects.find(obj => obj.key === readmeHtmlKey);
+        let readmeHtmlResponseText = "";
+        if (readmeHtmlObject) {
+            // Fetch the content of the README.html file
+            const readmeHtmlResponse = await fetch( url + "README.html");
+            if (readmeHtmlResponse.ok) {
+                readmeHtmlResponseText = await readmeHtmlResponse.text();
+            }
+        }
+
         // if no object found, return origin response
         if (index.objects.length === 0 && index.delimitedPrefixes.length === 0) {
             return originResponse;
         }
         return new Response(
-            renderTemplFull(index.objects, index.delimitedPrefixes, path, siteConfig),
+            renderTemplFull(index.objects, index.delimitedPrefixes, path, siteConfig, readmeHtmlResponseText),
             {
                 headers: {
                     'Content-Type': 'text/html; charset=utf-8',
