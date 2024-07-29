@@ -1,7 +1,7 @@
 import { svgs, cssStyle, defaultFavicon } from './static';
 import { SiteConfig } from './types';
 
-export var renderTemplFull = (files: R2Object[], folders: string[], path: string, config: SiteConfig) => {
+export var renderTemplFull = (files: R2Object[], folders: string[], path: string, config: SiteConfig, readmeHtmlResponseText: string) => {
     return `<!DOCTYPE html>
     <html>
     <head>
@@ -40,7 +40,11 @@ export var renderTemplFull = (files: R2Object[], folders: string[], path: string
     </tbody>
                 </table>
             </div>
-        </main>
+            <hr/>
+            <div>
+                <!-- readme start -->${readmeHtmlResponseText}
+            </div>
+				</main>
         <footer>
             ${generateFooter(config, path)}
         </footer>
